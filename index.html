@@ -7,14 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Talkdesk Modern Purple Branding */
+            /* Talkdesk Signature Purple Palette */
             --td-purple-dark: #2d0a31;
             --td-purple-main: #4a154b;
             --td-purple-light: #7b3d82;
-            --td-accent: #f26b6b; /* Talkdesk accent coral/pink */
-            --td-bg: #f8f5f9;
+            --td-accent: #f26b6b; 
+            --td-bg: #fdfbff;
             --td-white: #ffffff;
             --td-text: #1d1d1f;
+            --td-border: #e6ddeb;
         }
 
         body {
@@ -50,78 +51,70 @@
             border-radius: 16px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(74, 21, 75, 0.08);
-            border: 1px solid rgba(74, 21, 75, 0.05);
+            border: 1px solid var(--td-border);
         }
 
-        h2 { color: var(--td-purple-main); font-size: 20px; margin-top: 0; }
+        h2 { color: var(--td-purple-main); font-size: 18px; font-weight: 700; margin-top: 0; text-transform: uppercase; letter-spacing: 0.5px; }
 
         textarea {
             width: 100%;
-            height: 180px;
+            height: 200px;
             padding: 15px;
-            border: 2px solid #eee;
+            border: 2px solid #f0f0f0;
             border-radius: 12px;
             font-family: inherit;
             font-size: 14px;
             margin-bottom: 20px;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
         }
 
-        textarea:focus { border-color: var(--td-purple-light); outline: none; }
+        textarea:focus { border-color: var(--td-purple-light); outline: none; box-shadow: 0 0 0 4px rgba(74, 21, 75, 0.05); }
 
         .btn {
             background: var(--td-purple-main);
             color: white;
             border: none;
-            padding: 14px 28px;
-            border-radius: 8px;
+            padding: 16px 28px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            transition: transform 0.2s, background 0.2s;
+            font-size: 15px;
+            transition: all 0.2s ease;
         }
 
-        .btn:hover { background: var(--td-purple-light); transform: translateY(-1px); }
+        .btn:hover { background: var(--td-purple-light); transform: translateY(-1px); box-shadow: 0 5px 15px rgba(74, 21, 75, 0.2); }
 
         .output-box {
-            background: #fdfbff;
-            border: 1px solid #e6ddeb;
+            background: #fafafa;
+            border: 1px solid var(--td-border);
             border-radius: 12px;
             padding: 20px;
             min-height: 250px;
             font-family: 'Courier New', monospace;
             white-space: pre-wrap;
             position: relative;
+            line-height: 1.6;
+            color: #333;
         }
 
         .copy-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--td-bg);
-            padding: 5px 12px;
-            border-radius: 20px;
+            top: 15px;
+            right: 15px;
+            background: white;
+            padding: 6px 14px;
+            border-radius: 8px;
             font-size: 12px;
+            font-weight: 600;
             cursor: pointer;
-            border: 1px solid var(--td-purple-light);
+            border: 1px solid var(--td-border);
             color: var(--td-purple-main);
             font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
         }
 
-        /* Search Bar for manual lookup */
-        .search-container {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px 0;
-        }
-
-        #manualSearch {
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
+        .copy-badge:hover { background: var(--td-purple-main); color: white; }
 
         @media (max-width: 850px) {
             .container { grid-template-columns: 1fr; }
@@ -131,47 +124,44 @@
 <body>
 
 <header>
-    <h1>Talkdesk Docs Engine</h1>
-    <p>Solutions Engineering | Rapid Documentation Retrieval</p>
-    <div class="search-container">
-        <input type="text" id="manualSearch" placeholder="Quick search for a specific link..." onkeyup="filterLinks()">
-    </div>
+    <h1 style="margin:0; font-size: 28px;">Talkdesk Link Generator</h1>
+    <p style="opacity: 0.8; font-weight: 300;">Solutions Engineering Workflow Automation</p>
 </header>
 
 <div class="container">
     <div class="card">
-        <h2>Identify Capabilities</h2>
-        <textarea id="userInput" placeholder="Paste customer question or requirements here..."></textarea>
-        <button class="btn" onclick="processQuery()">Generate Multisource Response</button>
+        <h2>Input Requirements</h2>
+        <textarea id="userInput" placeholder="Paste your question, RFP text, or product list here..."></textarea>
+        <button class="btn" onclick="processQuery()">Generate Document Links</button>
     </div>
 
     <div class="card">
-        <h2>SE Response Template</h2>
+        <h2>Ready-to-Paste Response</h2>
         <div class="output-box" id="outputArea">
-            <div class="copy-badge" onclick="copyResult()">Copy to Clipboard</div>
-            <span id="outputText">Links will appear here based on your query...</span>
+            <div class="copy-badge" onclick="copyResult()">Copy Clipboard</div>
+            <span id="outputText">Links will generate here...</span>
         </div>
     </div>
 </div>
 
 <script>
-    // Expanded Database with mapped clusters
+    // Logic Database
     const docMap = [
-        { keys: ['knowledge', 'km', 'guide', 'content creation'], url: 'https://support.talkdesk.com/hc/en-us/articles/360039260152-Talkdesk-Knowledge-Management' },
-        { keys: ['knowledge', 'ai', 'recommendation', 'agent assist'], url: 'https://support.talkdesk.com/hc/en-us/sections/360007842611-Talkdesk-Agent-Assist' },
+        { keys: ['knowledge', 'km', 'guide', 'content creation', 'governance'], url: 'https://support.talkdesk.com/hc/en-us/articles/360039260152-Talkdesk-Knowledge-Management' },
+        { keys: ['recommendation', 'agent assist', 'copilot', 'workflow'], url: 'https://support.talkdesk.com/hc/en-us/sections/360007842611-Talkdesk-Agent-Assist' },
         { keys: ['analytics', 'reporting', 'insights', 'explore'], url: 'https://support.talkdesk.com/hc/en-us/sections/360004088371-Talkdesk-Explore' },
-        { keys: ['analytics', 'sentiment', 'interaction analytics', 'consistency'], url: 'https://support.talkdesk.com/hc/en-us/sections/360012996111-Talkdesk-Interaction-Analytics' },
+        { keys: ['sentiment', 'interaction analytics', 'consistency', 'measurable impacts'], url: 'https://support.talkdesk.com/hc/en-us/sections/360012996111-Talkdesk-Interaction-Analytics' },
         { keys: ['live', 'real-time', 'dashboard'], url: 'https://support.talkdesk.com/hc/en-us/sections/360007646692-Talkdesk-Live' },
-        { keys: ['integration', 'salesforce', 'zendesk', 'crm', 'workflows'], url: 'https://support.talkdesk.com/hc/en-us/sections/204273526-Integrations' },
+        { keys: ['integration', 'salesforce', 'zendesk', 'crm', 'agent workflows'], url: 'https://support.talkdesk.com/hc/en-us/sections/204273526-Integrations' },
         { keys: ['studio', 'ivr', 'flow', 'routing'], url: 'https://studio.talkdesk.com/' },
-        { keys: ['api', 'developer', 'webhook', 'sdk'], url: 'https://docs.talkdesk.com/' },
-        { keys: ['builder', 'customization'], url: 'https://support.talkdesk.com/hc/en-us/sections/360010028152-Talkdesk-Builder' }
+        { keys: ['api', 'developer', 'webhook', 'sdk'], url: 'https://docs.talkdesk.com/' }
     ];
 
     function processQuery() {
         const input = document.getElementById('userInput').value.toLowerCase();
         let matched = new Set();
 
+        // Keyword scan
         docMap.forEach(item => {
             item.keys.forEach(k => {
                 if (input.includes(k)) matched.add(item.url);
@@ -182,10 +172,15 @@
         let finalOutput = "For more information please review our documentation:\n\n";
         
         if (results.length > 0) {
-            results.forEach((link, index) => {
-                finalOutput += (index === 0) ? `${link}\n` : `• ${link}\n`;
-            });
+            // First URL: Standard Newline
+            finalOutput += results[0] + "\n";
+            
+            // Following URLs: Bulleted
+            for (let i = 1; i < results.length; i++) {
+                finalOutput += `• ${results[i]}\n`;
+            }
         } else {
+            // Default fallback if no keywords found
             finalOutput += "https://support.talkdesk.com/hc/en-us";
         }
 
@@ -195,12 +190,10 @@
     function copyResult() {
         const text = document.getElementById('outputText').textContent;
         navigator.clipboard.writeText(text);
-        alert("Response copied to clipboard!");
-    }
-
-    function filterLinks() {
-        // This is a placeholder for a feature that lists all URLs 
-        // We can add a modal or list below if you want to browse the whole DB.
+        
+        const badge = document.querySelector('.copy-badge');
+        badge.textContent = "Copied!";
+        setTimeout(() => { badge.textContent = "Copy Clipboard"; }, 2000);
     }
 </script>
 </body>
