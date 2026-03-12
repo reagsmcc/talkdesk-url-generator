@@ -70,12 +70,8 @@
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            transition: opacity 0.2s;
         }
 
-        .btn:hover { opacity: 0.9; }
-
-        /* THE CRITICAL FIX IS HERE */
         .output-box {
             background: #ffffff;
             border: 1px solid #ddd;
@@ -83,8 +79,8 @@
             padding: 25px;
             min-height: 280px;
             font-family: 'Courier New', monospace;
-            white-space: pre-wrap; /* Keeps your manual line breaks */
-            overflow-wrap: anywhere; /* Prevents URLs from breaking bullets to new lines */
+            white-space: pre-wrap; 
+            overflow-wrap: anywhere;
             position: relative;
             text-align: left; 
             color: #1d1d1f;
@@ -155,16 +151,12 @@
         let finalOutput = "For more information please review our documentation:\n\n";
         
         if (results.length > 0) {
-            results.forEach((url, index) => {
-                if (index === 0) {
-                    finalOutput += url + "\n";
-                } else {
-                    // We add the bullet and then the URL
-                    finalOutput += "• " + url + "\n";
-                }
+            // Updated Logic: Every single link gets a bullet. No exceptions.
+            results.forEach((url) => {
+                finalOutput += "• " + url + "\n";
             });
         } else {
-            finalOutput += "https://support.talkdesk.com/hc/en-us";
+            finalOutput += "• https://support.talkdesk.com/hc/en-us";
         }
 
         document.getElementById('outputText').innerText = finalOutput;
