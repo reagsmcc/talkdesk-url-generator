@@ -3,25 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TD Doc Linker | Talkdesk SE Tool</title>
+    <title>Talkdesk SE Doc Linker</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Talkdesk Signature Purple Palette */
+            --td-purple: #4a154b;
             --td-purple-dark: #2d0a31;
-            --td-purple-main: #4a154b;
-            --td-purple-light: #7b3d82;
-            --td-accent: #f26b6b; 
-            --td-bg: #fdfbff;
-            --td-white: #ffffff;
-            --td-text: #1d1d1f;
-            --td-border: #e6ddeb;
+            --td-bg: #f8f5f9;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--td-bg);
-            color: var(--td-text);
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -30,138 +23,123 @@
 
         header {
             width: 100%;
-            background: linear-gradient(135deg, var(--td-purple-dark) 0%, var(--td-purple-main) 100%);
+            background: linear-gradient(135deg, var(--td-purple-dark) 0%, var(--td-purple) 100%);
             color: white;
-            padding: 40px 20px;
+            padding: 40px 0;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .container {
             width: 95%;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: -30px auto 40px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
+            gap: 20px;
         }
 
         .card {
-            background: var(--td-white);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(74, 21, 75, 0.08);
-            border: 1px solid var(--td-border);
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 24px rgba(74, 21, 75, 0.06);
+            border: 1px solid #eee;
         }
 
-        h2 { color: var(--td-purple-main); font-size: 18px; font-weight: 700; margin-top: 0; text-transform: uppercase; letter-spacing: 0.5px; }
+        h2 { color: var(--td-purple); font-size: 16px; margin-top: 0; text-transform: uppercase; }
 
         textarea {
             width: 100%;
-            height: 200px;
-            padding: 15px;
-            border: 2px solid #f0f0f0;
-            border-radius: 12px;
-            font-family: inherit;
+            height: 180px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             font-size: 14px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            box-sizing: border-box;
         }
 
-        textarea:focus { border-color: var(--td-purple-light); outline: none; box-shadow: 0 0 0 4px rgba(74, 21, 75, 0.05); }
-
         .btn {
-            background: var(--td-purple-main);
+            background: var(--td-purple);
             color: white;
             border: none;
-            padding: 16px 28px;
-            border-radius: 10px;
+            padding: 14px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            font-size: 15px;
-            transition: all 0.2s ease;
         }
 
-        .btn:hover { background: var(--td-purple-light); transform: translateY(-1px); box-shadow: 0 5px 15px rgba(74, 21, 75, 0.2); }
-
+        /* FIXED OUTPUT STYLING */
         .output-box {
-            background: #fafafa;
-            border: 1px solid var(--td-border);
-            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             padding: 20px;
             min-height: 250px;
             font-family: 'Courier New', monospace;
             white-space: pre-wrap;
             position: relative;
-            line-height: 1.6;
-            color: #333;
+            text-align: left; /* Forces alignment to the left */
+            color: #1d1d1f;
+            line-height: 1.5;
+            font-size: 13px;
         }
 
-        .copy-badge {
+        .copy-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: white;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
+            top: 10px;
+            right: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 11px;
             cursor: pointer;
-            border: 1px solid var(--td-border);
-            color: var(--td-purple-main);
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s;
+            font-family: sans-serif;
         }
 
-        .copy-badge:hover { background: var(--td-purple-main); color: white; }
-
-        @media (max-width: 850px) {
-            .container { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 800px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0; font-size: 28px;">Talkdesk Link Generator</h1>
-    <p style="opacity: 0.8; font-weight: 300;">Solutions Engineering Workflow Automation</p>
+    <h1>Talkdesk Docs Engine</h1>
+    <p>Solutions Engineering Tool</p>
 </header>
 
 <div class="container">
     <div class="card">
-        <h2>Input Requirements</h2>
-        <textarea id="userInput" placeholder="Paste your question, RFP text, or product list here..."></textarea>
-        <button class="btn" onclick="processQuery()">Generate Document Links</button>
+        <h2>Identify Capabilities</h2>
+        <textarea id="userInput" placeholder="Paste question here..."></textarea>
+        <button class="btn" onclick="processQuery()">Generate Response</button>
     </div>
 
     <div class="card">
-        <h2>Ready-to-Paste Response</h2>
-        <div class="output-box" id="outputArea">
-            <div class="copy-badge" onclick="copyResult()">Copy Clipboard</div>
-            <span id="outputText">Links will generate here...</span>
+        <h2>Output</h2>
+        <div class="output-box">
+            <button class="copy-btn" onclick="copyText()">Copy</button>
+            <div id="outputText">Links will appear here...</div>
         </div>
     </div>
 </div>
 
 <script>
-    // Logic Database
     const docMap = [
-        { keys: ['knowledge', 'km', 'guide', 'content creation', 'governance'], url: 'https://support.talkdesk.com/hc/en-us/articles/360039260152-Talkdesk-Knowledge-Management' },
-        { keys: ['recommendation', 'agent assist', 'copilot', 'workflow'], url: 'https://support.talkdesk.com/hc/en-us/sections/360007842611-Talkdesk-Agent-Assist' },
-        { keys: ['analytics', 'reporting', 'insights', 'explore'], url: 'https://support.talkdesk.com/hc/en-us/sections/360004088371-Talkdesk-Explore' },
-        { keys: ['sentiment', 'interaction analytics', 'consistency', 'measurable impacts'], url: 'https://support.talkdesk.com/hc/en-us/sections/360012996111-Talkdesk-Interaction-Analytics' },
-        { keys: ['live', 'real-time', 'dashboard'], url: 'https://support.talkdesk.com/hc/en-us/sections/360007646692-Talkdesk-Live' },
-        { keys: ['integration', 'salesforce', 'zendesk', 'crm', 'agent workflows'], url: 'https://support.talkdesk.com/hc/en-us/sections/204273526-Integrations' },
-        { keys: ['studio', 'ivr', 'flow', 'routing'], url: 'https://studio.talkdesk.com/' },
-        { keys: ['api', 'developer', 'webhook', 'sdk'], url: 'https://docs.talkdesk.com/' }
+        { keys: ['knowledge', 'km', 'content creation'], url: 'https://support.talkdesk.com/hc/en-us/articles/360039260152-Talkdesk-Knowledge-Management' },
+        { keys: ['recommendation', 'agent assist', 'copilot'], url: 'https://support.talkdesk.com/hc/en-us/sections/360007842611-Talkdesk-Agent-Assist' },
+        { keys: ['analytics', 'interaction analytics', 'sentiment'], url: 'https://support.talkdesk.com/hc/en-us/sections/360012996111-Talkdesk-Interaction-Analytics' },
+        { keys: ['integration', 'salesforce', 'crm', 'workflows'], url: 'https://support.talkdesk.com/hc/en-us/sections/204273526-Integrations' },
+        { keys: ['studio', 'ivr', 'flow'], url: 'https://studio.talkdesk.com/' },
+        { keys: ['explore', 'reporting'], url: 'https://support.talkdesk.com/hc/en-us/sections/360004088371-Talkdesk-Explore' }
     ];
 
     function processQuery() {
         const input = document.getElementById('userInput').value.toLowerCase();
         let matched = new Set();
 
-        // Keyword scan
         docMap.forEach(item => {
             item.keys.forEach(k => {
                 if (input.includes(k)) matched.add(item.url);
@@ -172,28 +150,25 @@
         let finalOutput = "For more information please review our documentation:\n\n";
         
         if (results.length > 0) {
-            // First URL: Standard Newline
-            finalOutput += results[0] + "\n";
-            
-            // Following URLs: Bulleted
-            for (let i = 1; i < results.length; i++) {
-                finalOutput += `• ${results[i]}\n`;
-            }
+            // Logic to ensure first URL has no bullet, others do
+            results.forEach((url, index) => {
+                if (index === 0) {
+                    finalOutput += url + "\n";
+                } else {
+                    finalOutput += "• " + url + "\n";
+                }
+            });
         } else {
-            // Default fallback if no keywords found
             finalOutput += "https://support.talkdesk.com/hc/en-us";
         }
 
-        document.getElementById('outputText').textContent = finalOutput;
+        document.getElementById('outputText').innerText = finalOutput;
     }
 
-    function copyResult() {
-        const text = document.getElementById('outputText').textContent;
+    function copyText() {
+        const text = document.getElementById('outputText').innerText;
         navigator.clipboard.writeText(text);
-        
-        const badge = document.querySelector('.copy-badge');
-        badge.textContent = "Copied!";
-        setTimeout(() => { badge.textContent = "Copy Clipboard"; }, 2000);
+        alert("Copied!");
     }
 </script>
 </body>
