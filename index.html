@@ -3,308 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TD Doc Linker | Talkdesk Solutions Engineering</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>TD Doc Linker | Talkdesk SE Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Talkdesk Branded Colors */
-            --td-dark-blue: #0A1F44;
-            --td-mid-blue: #1A3C74;
-            --td-light-blue: #E1E8F5;
-            --td-action-blue: #0077E6;
-            --td-action-hover: #005BB3;
-            --td-text-dark: #333333;
-            --td-text-light: #666666;
-            --td-white: #FFFFFF;
-            --td-bg-gray: #F4F6F8;
-            --td-border: #DCDCDC;
+            /* Talkdesk Modern Purple Branding */
+            --td-purple-dark: #2d0a31;
+            --td-purple-main: #4a154b;
+            --td-purple-light: #7b3d82;
+            --td-accent: #f26b6b; /* Talkdesk accent coral/pink */
+            --td-bg: #f8f5f9;
+            --td-white: #ffffff;
+            --td-text: #1d1d1f;
         }
 
-        * { box-sizing: border-box; }
-
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--td-bg);
+            color: var(--td-text);
             margin: 0;
-            background-color: var(--td-bg-gray);
-            color: var(--td-text-dark);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Talkdesk SE branded header */
         header {
             width: 100%;
-            background-color: var(--td-dark-blue);
-            color: var(--td-white);
-            padding: 20px;
+            background: linear-gradient(135deg, var(--td-purple-dark) 0%, var(--td-purple-main) 100%);
+            color: white;
+            padding: 40px 20px;
             text-align: center;
-            border-bottom: 4px solid var(--td-action-blue);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
-        header h1 { margin: 0; font-size: 24px; font-weight: 500; }
-        header p { margin: 5px 0 0; font-size: 14px; opacity: 0.8; }
-
-        /* Main Container */
         .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 40px 0;
+            width: 95%;
+            max-width: 1200px;
+            margin: -30px auto 40px;
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
         }
 
-        @media (min-width: 768px) {
-            .container { grid-template-columns: 1fr 1fr; }
-        }
-
-        /* Cards/Panels */
-        .panel {
+        .card {
             background: var(--td-white);
+            border-radius: 16px;
             padding: 30px;
-            border-radius: 8px;
-            border: 1px solid var(--td-border);
-            box-shadow: 0 4px 12px rgba(10, 31, 68, 0.05);
+            box-shadow: 0 10px 30px rgba(74, 21, 75, 0.08);
+            border: 1px solid rgba(74, 21, 75, 0.05);
         }
 
-        /* Panel Titles */
-        .panel-title {
-            color: var(--td-mid-blue);
-            font-size: 18px;
-            font-weight: 700;
-            margin-top: 0;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--td-action-blue);
-            padding-left: 10px;
-        }
+        h2 { color: var(--td-purple-main); font-size: 20px; margin-top: 0; }
 
-        /* Inputs and Textareas */
-        label {
-            font-weight: 500;
-            color: var(--td-text-dark);
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        textarea, input[type="text"] {
+        textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--td-border);
-            border-radius: 4px;
+            height: 180px;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-family: inherit;
             font-size: 14px;
-            font-family: 'Roboto', sans-serif;
             margin-bottom: 20px;
-            background: var(--td-white);
-            transition: border-color 0.2s;
+            transition: border-color 0.3s;
         }
 
-        textarea:focus, input[type="text"]:focus {
-            outline: none;
-            border-color: var(--td-action-blue);
-            box-shadow: 0 0 0 3px rgba(0, 119, 230, 0.1);
-        }
+        textarea:focus { border-color: var(--td-purple-light); outline: none; }
 
-        textarea { height: 150px; resize: vertical; }
-
-        /* Buttons */
         .btn {
-            padding: 12px 24px;
+            background: var(--td-purple-main);
+            color: white;
             border: none;
-            border-radius: 4px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 700;
-            transition: background-color 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--td-action-blue);
-            color: var(--td-white);
-            display: block;
             width: 100%;
+            transition: transform 0.2s, background 0.2s;
         }
 
-        .btn-primary:hover { background-color: var(--td-action-hover); }
+        .btn:hover { background: var(--td-purple-light); transform: translateY(-1px); }
 
-        .btn-copy {
-            background-color: var(--td-light-blue);
-            color: var(--td-mid-blue);
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 8px 16px;
-        }
-
-        .btn-copy:hover { background-color: #D3DEF2; }
-
-        /* Output Area */
-        .output-container {
-            position: relative;
-            background-color: var(--td-bg-gray);
-            border: 1px solid var(--td-border);
-            border-radius: 4px;
+        .output-box {
+            background: #fdfbff;
+            border: 1px solid #e6ddeb;
+            border-radius: 12px;
             padding: 20px;
-            margin-top: 10px;
-            min-height: 150px;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 13px;
-            white-space: pre-wrap; /* Preserve spaces and newlines */
-            color: var(--td-text-dark);
+            min-height: 250px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            position: relative;
         }
 
-        /* Status Banner */
-        #status {
-            margin-top: 10px;
-            font-size: 13px;
-            text-align: center;
-            height: 16px;
+        .copy-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--td-bg);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            border: 1px solid var(--td-purple-light);
+            color: var(--td-purple-main);
+            font-family: 'Inter', sans-serif;
         }
 
-        #status.success { color: #28a745; }
+        /* Search Bar for manual lookup */
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+
+        #manualSearch {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Talkdesk Documentation Linker</h1>
-    <p>Solutions Engineering Tool | Generate tailored doc links from customer queries</p>
+    <h1>Talkdesk Docs Engine</h1>
+    <p>Solutions Engineering | Rapid Documentation Retrieval</p>
+    <div class="search-container">
+        <input type="text" id="manualSearch" placeholder="Quick search for a specific link..." onkeyup="filterLinks()">
+    </div>
 </header>
 
 <div class="container">
-    
-    <div class="panel">
-        <h2 class="panel-title">1. Map Keywords or Question</h2>
-        <p style="font-size: 14px; color: var(--td-text-light); margin-bottom: 20px;">
-            Input a customer question or a list of keywords. The tool will scan for core Talkdesk product pillars.
-        </p>
-        
-        <label for="keywords">Enter question or product keywords:</label>
-        <textarea id="keywords" placeholder="Example: How do I set up Studio flows for Salesforce, and where are the APIs?"></textarea>
-        
-        <button class="btn btn-primary" onclick="generateLinks()">Generate Documentation Response</button>
+    <div class="card">
+        <h2>Identify Capabilities</h2>
+        <textarea id="userInput" placeholder="Paste customer question or requirements here..."></textarea>
+        <button class="btn" onclick="processQuery()">Generate Multisource Response</button>
     </div>
 
-    <div class="panel" style="position: relative;">
-        <h2 class="panel-title">2. SE Documentation Response</h2>
-        <button class="btn btn-copy" onclick="copyToClipboard()">Copy</button>
-        
-        <label>Your formatted response:</label>
-        <div id="output" class="output-container">Your generated documentation links will appear here...</div>
-        <div id="status"></div>
+    <div class="card">
+        <h2>SE Response Template</h2>
+        <div class="output-box" id="outputArea">
+            <div class="copy-badge" onclick="copyResult()">Copy to Clipboard</div>
+            <span id="outputText">Links will appear here based on your query...</span>
+        </div>
     </div>
-
 </div>
 
 <script>
-    // --- 1. SE Keyword-to-URL Map ---
-    // This defines what the tool 'knows'. It connects keywords to specific collections.
-    const urlDatabase = {
-        // --- Reporting & Analytics (Explore) ---
-        "explore": "https://support.talkdesk.com/hc/en-us/sections/360004088371-Talkdesk-Explore",
-        "live": "https://support.talkdesk.com/hc/en-us/sections/360007646692-Talkdesk-Live",
-        "reporting": "https://data-dictionary.talkdesk.com/hc/en-us/sections/360012249531-Metrics-Definitions",
-        "metrics": "https://data-dictionary.talkdesk.com/",
-        "data dictionary": "https://data-dictionary.talkdesk.com/",
+    // Expanded Database with mapped clusters
+    const docMap = [
+        { keys: ['knowledge', 'km', 'guide', 'content creation'], url: 'https://support.talkdesk.com/hc/en-us/articles/360039260152-Talkdesk-Knowledge-Management' },
+        { keys: ['knowledge', 'ai', 'recommendation', 'agent assist'], url: 'https://support.talkdesk.com/hc/en-us/sections/360007842611-Talkdesk-Agent-Assist' },
+        { keys: ['analytics', 'reporting', 'insights', 'explore'], url: 'https://support.talkdesk.com/hc/en-us/sections/360004088371-Talkdesk-Explore' },
+        { keys: ['analytics', 'sentiment', 'interaction analytics', 'consistency'], url: 'https://support.talkdesk.com/hc/en-us/sections/360012996111-Talkdesk-Interaction-Analytics' },
+        { keys: ['live', 'real-time', 'dashboard'], url: 'https://support.talkdesk.com/hc/en-us/sections/360007646692-Talkdesk-Live' },
+        { keys: ['integration', 'salesforce', 'zendesk', 'crm', 'workflows'], url: 'https://support.talkdesk.com/hc/en-us/sections/204273526-Integrations' },
+        { keys: ['studio', 'ivr', 'flow', 'routing'], url: 'https://studio.talkdesk.com/' },
+        { keys: ['api', 'developer', 'webhook', 'sdk'], url: 'https://docs.talkdesk.com/' },
+        { keys: ['builder', 'customization'], url: 'https://support.talkdesk.com/hc/en-us/sections/360010028152-Talkdesk-Builder' }
+    ];
 
-        // --- Interaction Logic (Studio) ---
-        "studio": "https://studio.talkdesk.com/hc/en-us/categories/360001966271-Talkdesk-Studio",
-        "flow": "https://studio.talkdesk.com/hc/en-us/sections/360005703272-Flows",
-        "component": "https://studio.talkdesk.com/hc/en-us/sections/360005703312-Components",
-        "ivr": "https://studio.talkdesk.com/hc/en-us/sections/360005703272-Flows",
+    function processQuery() {
+        const input = document.getElementById('userInput').value.toLowerCase();
+        let matched = new Set();
 
-        // --- Integrations & AppConnect ---
-        "appconnect": "https://appconnect.talkdesk.com/",
-        "integration": "https://support.talkdesk.com/hc/en-us/sections/204273526-Integrations",
-        "salesforce": "https://support.talkdesk.com/hc/en-us/sections/204364423-Salesforce",
-        "zendesk": "https://support.talkdesk.com/hc/en-us/sections/204364463-Zendesk",
-        "zoom": "https://support.talkdesk.com/hc/en-us/articles/360001402372-Zoom-Integration",
+        docMap.forEach(item => {
+            item.keys.forEach(k => {
+                if (input.includes(k)) matched.add(item.url);
+            });
+        });
 
-        // --- AI & Automation ---
-        "interaction analytics": "https://support.talkdesk.com/hc/en-us/sections/360012996111-Talkdesk-Interaction-Analytics",
-        "sentient": "https://support.talkdesk.com/hc/en-us/sections/360012996111-Talkdesk-Interaction-Analytics",
-        "guardian": "https://support.talkdesk.com/hc/en-us/sections/360012996111-Talkdesk-Interaction-Analytics",
-        "copilot": "https://support.talkdesk.com/hc/en-us/sections/360012996111-Talkdesk-Interaction-Analytics",
-
-        // --- Developer/API ---
-        "api": "https://docs.talkdesk.com/",
-        "developer": "https://docs.talkdesk.com/",
-        "docs": "https://docs.talkdesk.com/",
-        "sdk": "https://docs.talkdesk.com/",
-        "webhook": "https://docs.talkdesk.com/docs/webhooks",
-
-        // --- Digital & Messaging ---
-        "digital engagement": "https://support.talkdesk.com/hc/en-us/categories/360002167151-Digital-Engagement",
-        "messaging": "https://support.talkdesk.com/hc/en-us/categories/360002167151-Digital-Engagement",
-        "sms": "https://support.talkdesk.com/hc/en-us/sections/360012011032-SMS",
-        "email": "https://support.talkdesk.com/hc/en-us/sections/360012011012-Email",
-
-        // --- General ---
-        "support": "https://support.talkdesk.com/hc/en-us",
-        "admin": "https://support.talkdesk.com/hc/en-us/categories/201389863-Admin",
-        "configuration": "https://support.talkdesk.com/hc/en-us/categories/201389863-Admin",
-        "troubleshooting": "https://support.talkdesk.com/hc/en-us/sections/204313203-Troubleshooting"
-    };
-
-    // --- 2. Link Generation Logic ---
-    function generateLinks() {
-        const input = document.getElementById("keywords").value.toLowerCase();
-        const outputElement = document.getElementById("output");
+        const results = Array.from(matched);
+        let finalOutput = "For more information please review our documentation:\n\n";
         
-        // Find matching keywords
-        const matchedUrls = new Set(); // Use a Set to avoid duplicate URLs
-
-        // Scan the input text against the keys in our database
-        for (const [key, url] of Object.entries(urlDatabase)) {
-            // RegEx check for whole-word matches (e.g., 'data dictionary' matches, but 'metrics' does not match 'metric')
-            const regex = new RegExp(`\\b${key}\\b`, 'i');
-            if (regex.test(input)) {
-                matchedUrls.add(url);
-            }
-        }
-
-        // --- 3. Format the Output ---
-        let response = "";
-
-        if (matchedUrls.size > 0) {
-            response += "For more information please review our documentation:\n\n";
-            // Convert set to array and map the links
-            const linksArray = Array.from(matchedUrls);
-            
-            // Your custom request: Primary links first, then bullets for others.
-            // (I will follow that structure literally)
-            if (linksArray.length > 0) {
-                // First link: No bullet
-                response += `${linksArray[0]}\n`;
-            }
-            
-            // Remaining links: with a bullet (•)
-            for (let i = 1; i < linksArray.length; i++) {
-                response += `• ${linksArray[i]}\n`;
-            }
+        if (results.length > 0) {
+            results.forEach((link, index) => {
+                finalOutput += (index === 0) ? `${link}\n` : `• ${link}\n`;
+            });
         } else {
-            response = "For more information please review our documentation:\n\nhttps://support.talkdesk.com/hc/en-us";
+            finalOutput += "https://support.talkdesk.com/hc/en-us";
         }
 
-        // Update the UI
-        outputElement.textContent = response;
+        document.getElementById('outputText').textContent = finalOutput;
     }
 
-    // --- 4. Copy Logic ---
-    function copyToClipboard() {
-        const textToCopy = document.getElementById("output").textContent;
-        const statusElement = document.getElementById("status");
+    function copyResult() {
+        const text = document.getElementById('outputText').textContent;
+        navigator.clipboard.writeText(text);
+        alert("Response copied to clipboard!");
+    }
 
-        navigator.clipboard.writeText(textToCopy).then(() => {
-            statusElement.textContent = "Copied to clipboard!";
-            statusElement.className = "success";
-            setTimeout(() => { statusElement.textContent = ""; statusElement.className = ""; }, 2000);
-        }).catch(err => {
-            statusElement.textContent = "Failed to copy.";
-            statusElement.style.color = "red";
-        });
+    function filterLinks() {
+        // This is a placeholder for a feature that lists all URLs 
+        // We can add a modal or list below if you want to browse the whole DB.
     }
 </script>
-
 </body>
 </html>
